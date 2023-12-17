@@ -1,0 +1,652 @@
+// import React, {  useState, useEffect, forwardRef } from 'react';
+// import { Pie } from 'react-chartjs-2';
+// import ChartDataLabels from 'chartjs-plugin-datalabels';
+// // import 'chartjs-plugin-datalabels';
+// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+// ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
+
+
+// const PieChart = ({
+//     dataTable, animate, options, id, backgroundColor, label
+// }) => {
+
+    // const data = {
+    //     labels: dataTable.map((par) => par.id),
+    //     datasets: [{
+    //         label: label,
+    //         data: dataTable.map((par) => par.size),
+    //         backgroundColor: backgroundColor,
+    //     }],
+    // }
+
+    // const plugins = [ChartDataLabels]
+
+    // const option = {
+    //     responsive: true,
+    //     animation: {duration: 0},
+    //     plugins: {
+    //         tooltip: false,
+    //         legend: {
+    //             display: false,
+    //         },
+    //         datalabels: {
+    //             color: "#ffffff",
+    //             formatter: (value, context) => Context,
+    //             font: {size: 24},
+    //         }
+    //     }
+    // }
+
+//     return (
+//         <>
+//             <Pie 
+//                 data={data}
+//                 options={option}
+//                 plugins={plugins}
+//                 width={'200'}
+//                 height={'200'}
+//             />
+//         </>
+//     )
+// }
+
+// export default PieChart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+// import { Pie } from 'react-chartjs-2';
+
+// ChartJS.register(ArcElement, Tooltip, Legend);
+
+// export const data = {
+//   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+//   datasets: [
+//     {
+//       label: '# of Votes',
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: [
+//         'rgba(255, 99, 132, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(255, 206, 86, 0.2)',
+//         'rgba(75, 192, 192, 0.2)',
+//         'rgba(153, 102, 255, 0.2)',
+//         'rgba(255, 159, 64, 0.2)',
+//       ],
+//       borderColor: [
+//         'rgba(255, 99, 132, 1)',
+//         'rgba(54, 162, 235, 1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(75, 192, 192, 1)',
+//         'rgba(153, 102, 255, 1)',
+//         'rgba(255, 159, 64, 1)',
+//       ],
+//       borderWidth: 1,
+//     },
+//   ],
+// };
+
+// export function App() {
+//   return <Pie data={data} />;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Il semble que votre code utilise la bibliothèque Chart.js pour créer plusieurs graphiques circulaires (pie charts) avec des configurations similaires. Voici une version corrigée et améliorée de votre code en React :
+
+// ```jsx
+// import React, { useEffect, useRef } from 'react';
+// import Chart from 'chart.js/auto';
+// import 'chartjs-plugin-datalabels';
+
+// const ChartComponent = ({ chartRef, data, backgroundColor, label, id }) => {
+//   useEffect(() => {
+//     if (chartRef.current) {
+//       const ctx = chartRef.current.getContext('2d');
+
+//       new Chart(ctx, {
+//         type: 'pie',
+//         data: {
+//           labels: data.map((item) => item.id),
+//           datasets: [{
+//             label: label,
+//             data: data.map((item) => item.size),
+//             backgroundColor: backgroundColor,
+//           }],
+//         },
+//         options: {
+//           responsive: true,
+//           animation: { duration: 0 },
+//           plugins: {
+//             tooltip: false,
+//             legend: {
+//               display: false,
+//             },
+//             datalabels: {
+//               color: "#fff",
+//               formatter: (_, context) => context.chart.dataset.labels[context.dataIndex],
+//               font: { size: "24px" },
+//             },
+//           },
+//         },
+//       });
+//     }
+//   }, [chartRef, data, backgroundColor, label]);
+
+//   return (
+//     <canvas ref={chartRef} id={id} width="200" height="200" />
+//   );
+// };
+
+// const App = () => {
+//   const pieChartA = useRef(null);
+//   const pieChartB = useRef(null);
+//   const pieChartC = useRef(null);
+//   const pieChartD = useRef(null);
+
+//   const FiveData = [...]; // Replace with your data
+//   const TenData = [...];  // Replace with your data
+//   const TwelveData = [...];  // Replace with your data
+//   const FifteenData = [...];  // Replace with your data
+
+//   return (
+//     <div>
+//       <ChartComponent chartRef={pieChartA} data={FiveData} backgroundColor={["#194770", "red", "white", "green"]} label="5 choices" id="chartA" />
+//       <ChartComponent chartRef={pieChartB} data={TenData} backgroundColor={["#00b982", "#aee507", "#bb0e50", "#213547"]} label="10 choices" id="chartB" />
+//       <ChartComponent chartRef={pieChartC} data={TwelveData} backgroundColor={["#d4d5d5", "#aee507", "#d5580a", "#35bcff"]} label="12 choices" id="chartC" />
+//       <ChartComponent chartRef={pieChartD} data={FifteenData} backgroundColor={["#d4d5d5", "#08876b", "#ff4a18", "#075e76"]} label="15 choices" id="chartD" />
+//     </div>
+//   );
+// };
+
+// export default App;
+// ```
+
+// Dans ce code, j'ai créé un composant `ChartComponent` qui prend en compte la logique pour initialiser un 
+//graphique circulaire. Vous pouvez utiliser ce composant pour chaque graphique individuel dans votre application. 
+//Assurez-vous de remplacer `FiveData`, `TenData`, `TwelveData`, et `FifteenData` par vos propres données.
+
+
+
+
+
+
+
+
+
+
+
+
+CHARTJS REACTJS EXAMPLE JUSTE
+
+
+
+import React, {  useState, useEffect, forwardRef, useRef } from 'react';
+import { Pie } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {
+    Chart as Chart,
+    ArcElement,
+    LinearScale,
+    CategoryScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Legend,
+    Tooltip,
+    TimeScale,
+  } from 'chart.js/auto'
+  
+Chart.register(ArcElement, TimeScale, Tooltip, Legend)
+Chart.register(ChartDataLabels)
+
+
+const PieChart = (
+    {table,animate, options, backgroundColor, label}
+) => {
+    const element = document.getElementById('canvas')
+    const ref = useRef(null)
+    const instanceRef = useRef(null)
+
+    useEffect(() => {
+
+        if(table && table.length){
+            if(instanceRef.current) instanceRef.current.destroy()
+
+            if(ref){
+                const ctx = ref.current.getContext('2d')
+                instanceRef.current = new Chart(ctx, {
+                    plugins: [ChartDataLabels],
+                    type: 'pie',
+                    data: {
+                        datasets: [{
+                            label: label,
+                            data: table.map((par) => par.size),
+                            backgroundColor: backgroundColor,
+                        }],
+                        labels: table.map((par) => par.id),
+                    },
+                    options: {
+                        responsive: true,
+                        animation: {duration: 0},
+                        plugins: {
+                            tooltip: false,
+                            legend: {
+                                display: false,
+                            },
+                            datalabels: {
+                                color: ["#ffffff",'#1fadc','#fy6b','#lb1k'],
+                                formatter: (value, context) => context.chart.data.labels[context.dataIndex],
+                                font: {size: 24},
+                            }
+                        },
+                    },
+                })
+            }
+        }
+
+        return () => {
+            if(instanceRef.current) instanceRef.current.destroy()
+        }
+
+    }, [])
+    
+    return <canvas ref={ref} />
+}
+
+export default PieChart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------
+
+{/* <section onLoad={handleLoad}>
+        <header>
+          <h2>
+            <button disabled className="button-a">
+              Skills Game
+            </button>
+          </h2>
+        </header>
+
+        <div
+          style={{
+            position: "fixed",
+            top: "193px",left: "393px",right: "auto",
+            border: "1px solid transparent",
+            borderTopWidth: "5px",
+            borderRightWidth: "5px",
+            borderBottomWidth: "6px",
+            borderColor: "#f9f9f9",
+            // borderRadius: "3px",
+            zIndex: "100",
+            // boxShadow: "1px 1px 6px white",
+          }}
+        ></div>
+        <div
+          style={{
+            position: "fixed",
+            top: "193px",left: "370px",right: "auto",
+            border: "1px solid transparent",
+            borderTopWidth: "5px",
+            borderRightWidth: "5px",
+            borderBottomWidth: "6px",
+            borderColor: "#f9f9f9",
+            // borderRadius: "3px",
+            zIndex: "10",
+          }}
+        ></div>
+        <div
+          style={{
+            position: "fixed",
+            top: "193px",left: "370px",right: "auto",
+            border: "1px solid transparent",
+            borderWidth: "30px 15px 0px 15px",
+            borderColor: "#f9f9f9 transparent transparent",
+            zIndex: "100",
+            // boxShadow: "1px 1px 6px white",
+          }}
+        ></div>
+
+        {el}
+
+        <div>
+          <button id="bta" onClick={(e) => changeElementAtClick(e,"bta")} className="button-b">1</button>&nbsp;
+          <button id="btb" onClick={(e) => changeElementAtClick(e,"btb")} className="button-b">2</button>&nbsp;
+          <button id="btc" onClick={(e) => changeElementAtClick(e,"btc")} className="button-c">3</button>&nbsp;
+          <button id="btd" onClick={(e) => changeElementAtClick(e,"btd")} className="button-d">4</button>
+        </div>
+
+        <br/><br/><br/><br/>
+        <div className="d-flex">
+          <button className="button-e">Game Start</button>
+        </div>
+        
+        
+        <footer>
+          I am footer
+        </footer>
+      </section> */}
+
+      {/* <div 
+        style={{
+          border: "1px solid transparent",
+          borderWidth: "100px 100px 100px 100px",
+          borderColor: "#d4d5d5 #08876b #ff4a18 #075e76",
+          borderBottomLeftRadius: "200px",
+          borderBottomRightRadius: "200px",
+          boxShadow: "1px 1px 6px #d5580a",
+        }}
+      >
+          <div
+              style={{
+                border: "1px solid transparent",
+                borderWidth: "7px 7px 7px 7px",
+                borderColor: "#0987ab",
+                borderRadius: "100px",
+              }}
+          >
+            <div
+                style={{
+                  border: "1px solid transparent",
+                  borderWidth: "15px 15px 15px 15px",
+                  borderColor: "#fff",
+                  borderRadius: "100px",
+                }}
+            >
+            </div>
+          </div>
+      
+      </div> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        const changeElementAtClick = (e,params) => {
+    e.preventDefault()
+    
+    if(params === "bta") {
+      document.querySelector('#btb').style.opacity = '1';
+      document.querySelector('#btc').style.opacity = '1';
+      document.querySelector('#btd').style.opacity = '1';
+      document.querySelector('#bta').style.opacity = '0.3'; 
+      setEl(<Roue children={ 
+        <div 
+          style={{
+            border: "1px solid transparent",
+            borderWidth: "100px 100px 100px 100px",
+            borderColor: "#194770 red white green",
+            borderRadius: "200px",
+            boxShadow: "1px 1px 6px yellow",
+          }}
+          className="roue"
+        >
+            <div
+                style={{
+                  border: "1px solid transparent",
+                  borderWidth: "7px 7px 7px 7px",
+                  borderColor: "yellow",
+                  borderRadius: "100px",
+                }}
+            >
+              <div
+                  style={{
+                    border: "1px solid transparent",
+                    borderWidth: "15px 15px 15px 15px",
+                    borderColor: "#1164c3",
+                    borderRadius: "100px",
+                  }}
+              >
+              </div>
+            </div>
+        </div>
+        // <button className="button-a">I am first button</button>
+      }></Roue>)
+    }
+    if(params === "btb") {
+      document.querySelector('#bta').style.opacity = '1';
+      document.querySelector('#btc').style.opacity = '1';
+      document.querySelector('#btd').style.opacity = '1';
+      document.querySelector('#btb').style.opacity = '0.3'; 
+      setEl(<Roue children={ 
+        <div 
+        style={{
+          border: "1px solid transparent",
+          borderWidth: "100px 100px 100px 100px",
+          borderColor: "#00b982 #aee507 #bb0e50 #213547",
+          borderRadius: "200px",
+          boxShadow: "1px 1px 6px #993dc3",
+        }}
+        className="roue"
+      >
+          <div
+              style={{
+                border: "1px solid transparent",
+                borderWidth: "7px 7px 7px 7px",
+                borderColor: "#fff",
+                borderRadius: "100px",
+              }}
+          >
+            <div
+                style={{
+                  border: "1px solid transparent",
+                  borderWidth: "15px 15px 15px 15px",
+                  borderColor: "#993dc3",
+                  borderRadius: "100px",
+                }}
+            >
+            </div>
+          </div>
+        </div>
+      // <button className="button-b">I am second button</button>
+      }></Roue>)
+    }
+    if(params === "btc") {
+      document.querySelector('#bta').style.opacity = '1';
+      document.querySelector('#btb').style.opacity = '1';
+      document.querySelector('#btd').style.opacity = '1';
+      document.querySelector('#btc').style.opacity = '0.3'; 
+      setEl(<Roue children={
+        <div 
+        style={{
+          border: "1px solid transparent",
+          borderWidth: "100px 100px 100px 100px",
+          borderColor: "#d4d5d5 #aee507 #d5580a #35bcff",
+          borderRadius: "200px",
+          boxShadow: "1px 1px 6px #d5580a",
+        }}
+        className="roue"
+      >
+          <div
+              style={{
+                border: "1px solid transparent",
+                borderWidth: "7px 7px 7px 7px",
+                borderColor: "#fff",
+                borderRadius: "100px",
+              }}
+          >
+              <div
+                  style={{
+                    border: "1px solid transparent",
+                    borderWidth: "15px 15px 15px 15px",
+                    borderColor: "#993dc3",
+                    borderRadius: "100px",
+                  }}
+              >
+              </div>
+          </div>
+      </div>
+        // <button className="button-c">I am third button</button>
+        }></Roue>)
+    }
+    if(params === "btd") {
+      document.querySelector('#bta').style.opacity = '1';
+      document.querySelector('#btb').style.opacity = '1';
+      document.querySelector('#btc').style.opacity = '1';
+      document.querySelector('#btd').style.opacity = '0.3'; 
+      setEl(<Roue children={
+        <div 
+        style={{
+          border: "1px solid transparent",
+          borderWidth: "100px 100px 100px 100px",
+          borderColor: "#d4d5d5 #08876b #ff4a18 #075e76",
+          borderRadius: "200px",
+          boxShadow: "1px 1px 6px #d5580a",
+        }}
+        className="roue"
+      >
+          <div
+              style={{
+                border: "1px solid transparent",
+                borderWidth: "7px 7px 7px 7px",
+                borderColor: "#0987ab",
+                borderRadius: "100px",
+              }}
+          >
+            <div
+                style={{
+                  border: "1px solid transparent",
+                  borderWidth: "15px 15px 15px 15px",
+                  borderColor: "#fff",
+                  borderRadius: "100px",
+                }}
+            >
+            </div>
+          </div>
+        </div>
+      }></Roue>)
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<Roue 
+    //   children={
+    //     <div 
+    //       style={{
+    //         border: "1px solid transparent",
+    //         borderWidth: "100px 100px 100px 100px",
+    //         borderColor: "#194770 red white green",
+    //         borderRadius: "200px",
+    //         boxShadow: "1px 1px 6px yellow",
+    //       }}
+    //       className="logo"
+    //     >
+    //         <div
+    //             style={{
+    //               border: "1px solid transparent",
+    //               borderWidth: "7px 7px 7px 7px",
+    //               borderColor: "yellow",
+    //               borderRadius: "100px",
+    //             }}
+    //         >
+    //           <div
+    //               style={{
+    //                 border: "1px solid transparent",
+    //                 borderWidth: "15px 15px 15px 15px",
+    //                 borderColor: "#1164c3",
+    //                 borderRadius: "100px",
+    //               }}
+    //           >
+    //           </div>
+    //         </div>
+    //     </div>
+    //     //<button className="button-a">I am first button</button>
+    // }
+    // />
